@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Training Javascript</title>
+	<script src="js/module.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		/*---------call module---------*/
+
+		// Outputs: Where in the world is Paul Irish today?
+		myModule.saySomething();
+
+		// Outputs: Caching is: enabled
+		myModule.reportMyConfig();
+
+		// Outputs: fr
+		myModule.updateMyConfig({
+			language: "Vi",
+			useCaching: false
+		});
+
+		document.write('<h4>my config after update:</h4>')
+		// Outputs: Caching is: disabled
+		myModule.reportMyConfig();
+	</script>
+</body>
+</html>
