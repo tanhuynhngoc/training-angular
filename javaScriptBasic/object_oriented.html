@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Training Javascript</title>
+	<script >
+
+		var obj = {};
+		Object.defineProperty( obj, 'foo', {
+			configurable: false,
+			enumerable: true
+		} );
+		var t = Object.getOwnPropertyDescriptor( obj, 'foo' );
+		console.log( t );
+		console.log( obj );
+
+	</script>
+</head>
+<body>
+</body>
+</html>

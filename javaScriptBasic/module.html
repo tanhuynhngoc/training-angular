@@ -23,6 +23,24 @@
 		document.write('<h4>my config after update:</h4>')
 		// Outputs: Caching is: disabled
 		myModule.reportMyConfig();
+
+
+
+		var PersonProto = { describe: function () {
+			return 'Person named '+this.name; }
+		};
+		var jane = {
+
+		        name: 'Jane'
+		    };
+
+		    jane.prototype.toSource(PersonProto) ;
+		// var tarzan = {
+		// 	tarzan.Prototype: PersonProto, name: 'Tarzan'
+		// };
+
+		// var j = new jane();
+		// var t = new tarzan();
 	</script>
 </body>
 </html>
