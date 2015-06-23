@@ -15,7 +15,9 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'fake-browser',
+    'address-bar'
   ] )
 	.config( function ( $routeProvider ) {
 		$routeProvider
@@ -30,6 +32,10 @@ angular
 			.when( '/directive', {
 				templateUrl: 'views/directive.html',
 				controller: 'DirectiveCtrl'
+			} )
+			.when( '/using-location-service', {
+				templateUrl: 'views/using-location-service.html',
+				controller: 'LocationCtrl'
 			} )
 			.otherwise( {
 				redirectTo: '/'
