@@ -85,7 +85,7 @@ app.controller( 'DirectiveCtrl', [ '$scope', '$timeout', function ( $scope, $tim
 			'close': '&onClose'
 		},
 		templateUrl: 'views/my-dialog-close.html'
-	}
+	};
 } )
 
 // drag

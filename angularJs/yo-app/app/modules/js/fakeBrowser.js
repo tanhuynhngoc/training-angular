@@ -1,16 +1,17 @@
   'use strict';
-  angular.module( 'fake-browser', [] )
+  angular.module( 'fakeBrowser', [] )
 
-  .config( function ( $provide ) {
+  .config( [ '$provide', function ( $provide ) {
+
   	$provide.decorator( '$browser', function ( $delegate, baseHref, initUrl ) {
 
   		$delegate.onUrlChange = function ( fn ) {
   			this.urlChange = fn;
   		};
 
-		// $delegate.url = function () {
-		// 			return initUrl;
-		// 		};
+  		// $delegate.url = function () {
+  		// 	return initUrl;
+  		// };
 
   		$delegate.defer = function ( fn, delay ) {
   			setTimeout( function () {
@@ -18,10 +19,9 @@
   			}, delay || 0 );
   		};
 
-  		$delegate.baseHref = function () {
-  			return baseHref;
-  		};
-
+  		// $delegate.baseHref = function () {
+  		//  return baseHref;
+  		// };
   		return $delegate;
   	} );
-  } );
+  } ] );

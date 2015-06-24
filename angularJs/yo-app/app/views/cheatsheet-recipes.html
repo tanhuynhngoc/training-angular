@@ -1,0 +1,7 @@
+
+<h3>Datepicker</h3>
+<div ng-controller="datepickerCtrl">
+	<input id="dateField" datepicker ng-model="$parent.currentDate" select="updateMyText(date)">
+	<br/>
+	{{myText}} - {{currentDate}}
+</div>

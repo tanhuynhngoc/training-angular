@@ -1,23 +1,24 @@
-
+<h3>Customer infomation</h3>
 
 <my-customer info="naomi"></my-customer>
 <hr>
 <my-customer info="igor"></my-customer>
 <hr>
+<h3>Customer Date format</h3>
 <div>
 	Date format: <input ng-model="format"> <hr/>
   	Current time is: <span my-current-time="format"></span>
 </div>
 
+<h3>Bind behavior to element</h3>
 <!-- add buttons to this dialog box, and allow someone using the directive to bind their own behavior to it. -->
-<div>
 
 	{{message}}
 	<my-dialog ng-hide="dialogIsHidden" on-close="hideDialog(message)">
 	    Check out the contents, {{name}}!
 	</my-dialog>
-</div>
 
+<h3>Drag element</h3>
 <!-- Drag element-->
 
 <span my-draggable>Drag ME</span>

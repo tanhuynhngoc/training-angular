@@ -1,7 +1,8 @@
 'use strict';
-angular.module( 'address-bar', [] )
-	.directive( 'ngAddressBar', function ( $browser, $timeout ) {
+angular.module( 'addressBar', [] )
+	.directive( 'ngAddressBar', [ '$browser', '$timeout', function ( $browser, $timeout ) {
 		return {
+
 			template: 'Address: <input id="addressBar" type="text" style="width: 400px" >',
 			link: function ( scope, element, attrs ) {
 				var input = element.children( "input" ),
@@ -17,10 +18,10 @@ angular.module( 'address-bar', [] )
 					return url ? input.val( url ) : input.val();
 				};
 
-				function fireUrlChange() {
+			function fireUrlChange() {
 					delay = null;
 					$browser.urlChange( input.val() );
 				}
 			}
 		};
-	} );
+	} ] );

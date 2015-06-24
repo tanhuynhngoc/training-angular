@@ -16,10 +16,10 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'fake-browser',
-    'address-bar'
+    'fakeBrowser',
+    'addressBar'
   ] )
-	.config( function ( $routeProvider ) {
+	.config( [ '$routeProvider', function ( $routeProvider ) {
 		$routeProvider
 			.when( '/', {
 				templateUrl: 'views/main.html',
@@ -37,7 +37,13 @@ angular
 				templateUrl: 'views/using-location-service.html',
 				controller: 'LocationCtrl'
 			} )
+			.when( '/cheatsheet-recipes', {
+				templateUrl: 'views/cheatsheet-recipes.html',
+				controller: 'datepickerCtrl'
+			} )
 			.otherwise( {
 				redirectTo: '/'
 			} );
-	} );
+
+
+	} ] );
