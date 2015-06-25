@@ -5,3 +5,12 @@
 	<br/>
 	{{myText}} - {{currentDate}}
 </div>
+
+<h3>Socked.io</h3>
+<div ng-controller="socketCtrl">
+	<input type="text" ng-model="message">
+	<button ng-click="broadcast()">Broadcast</button>
+	<ul>
+		<li ng-repeat="msg in messages">{{msg}}</li>
+    </ul>
+</div>

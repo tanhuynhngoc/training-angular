@@ -18,7 +18,7 @@ angular.module( 'addressBar', [] )
 					return url ? input.val( url ) : input.val();
 				};
 
-			function fireUrlChange() {
+				function fireUrlChange() {
 					delay = null;
 					$browser.urlChange( input.val() );
 				}
