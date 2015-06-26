@@ -1,11 +1,12 @@
 'use strict';
 
-var app = angular.module( 'yoAppApp' );
+var app = angular.module( 'myApp', [] );
 
 // We define a factory the socket service is instantiated only once, and
 // thus act as a singleton for the scope of the application
 app.factory( 'socket', function ( $rootScope ) {
 	var socket = io.connect( 'http://localhost:8080' );
+	console.log( socket );
 	return {
 		on: function ( eventName, callback ) {
 			socket.on( eventName, function () {
@@ -28,7 +29,7 @@ app.factory( 'socket', function ( $rootScope ) {
 	};
 } );
 
-function socketCtrl( $scope, socket ) {
+app.controller( 'socketCtrl', [ '$scope', 'socket', function ( $scope, socket ) {
 
 	$scope.message = '';
 	$scope.messages = [];
@@ -46,30 +47,4 @@ function socketCtrl( $scope, socket ) {
 		$scope.messages.push( $scope.message );
 		$scope.message = '';
 	};
-}
-
-// var express = require( 'express' ),
-//  app = express(),
-//  server = require( 'http' )
-//  .createServer( app ),
-//  io = require( 'socket.io' )
-//  .listen( server );
-
-// server.listen( 8080 );
-
-// app.get( '/', function ( req, res ) {
-//  res.sendfile( __dirname + '/index.html' );
-// } );
-
-// app.get( '/app.js', function ( req, res ) {
-//  res.sendfile( __dirname + '/app.js' );
-// } );
-
-// io.sockets.on( 'connection', function ( socket ) {
-//  socket.emit( 'new:msg', 'Welcome to AnonBoard' );
-
-//  socket.on( 'broadcast:msg', function ( data ) {
-//    // Tell all the other clients (except self) about the new message
-//    socket.broadcast.emit( 'new:msg', data.message );
-//  } );
-// } );
+} ] );

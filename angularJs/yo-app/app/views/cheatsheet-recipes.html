@@ -1,16 +1,68 @@
 
 <h3>Datepicker</h3>
 <div ng-controller="datepickerCtrl">
-	<input id="dateField" datepicker ng-model="$parent.currentDate" select="updateMyText(date)">
+	<input id="dateField" datepicker ng-model="currentDate" select="updateMyText(date)">
 	<br/>
 	{{myText}} - {{currentDate}}
 </div>
 
-<h3>Socked.io</h3>
-<div ng-controller="socketCtrl">
-	<input type="text" ng-model="message">
-	<button ng-click="broadcast()">Broadcast</button>
-	<ul>
-		<li ng-repeat="msg in messages">{{msg}}</li>
-    </ul>
+<h3>Team List</h3>
+
+<div class="row-fluid">
+  <div class="span3" ng-controller="FilterCtrl">
+    <form class="form-horizontal">
+
+      <div class="controls-row">
+        <label for="searchTextBox" class="control-label">Search:</label>
+        <div class="controls">
+          <input type="text" id="searchTextBox" ng-model="filterService.searchText">
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <label for="sportComboBox" class="control-label">Sport:</label>
+        <div class="controls">
+          <select id="sportComboBox" ng-model="filterService.activeFilters.sport">
+            <option ng-repeat="sport in ['Basketball', 'Hockey', 'Football']">{{sport}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <label for="cityComboBox" class="control-label">City:</label>
+        <div class="controls">
+          <select id="cityComboBox" ng-model="filterService.activeFilters.city">
+            <option ng-repeat="city in ['Dallas', 'Los Angeles', 'Boston', 'New York']">{{city}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <label class="control-label">Featured:</label>
+        <div class="controls">
+          <input type="checkbox" ng-model="filterService.activeFilters.featured" ng-false-value="" />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="offset1 span8" ng-controller="ListCtrl">
+    <table class="table table-hover table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Sport</th>
+        <th>City</th>
+        <th>Featured</th>
+      </tr>
+      </thead>
+      <tbody id="teamListTable">
+      <tr ng-repeat="team in teamsList | filter:filterService.activeFilters | filter:filterService.searchText">
+        <td>{{team.name}}</td>
+        <td>{{team.sport}}</td>
+        <td>{{team.city}}</td>
+        <td>{{team.featured}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
