@@ -1,24 +1,19 @@
-
 <h3>Datepicker</h3>
 <div ng-controller="datepickerCtrl">
-	<input id="dateField" datepicker ng-model="currentDate" select="updateMyText(date)">
-	<br/>
-	{{myText}} - {{currentDate}}
+  <input id="dateField" datepicker ng-model="currentDate" select="updateMyText(date)">
+  <br/>
+  {{myText}} - {{currentDate}}
 </div>
-
 <h3>Team List</h3>
-
 <div class="row-fluid">
   <div class="span3" ng-controller="FilterCtrl">
     <form class="form-horizontal">
-
       <div class="controls-row">
         <label for="searchTextBox" class="control-label">Search:</label>
         <div class="controls">
           <input type="text" id="searchTextBox" ng-model="filterService.searchText">
         </div>
       </div>
-
       <div class="controls-row">
         <label for="sportComboBox" class="control-label">Sport:</label>
         <div class="controls">
@@ -27,7 +22,6 @@
           </select>
         </div>
       </div>
-
       <div class="controls-row">
         <label for="cityComboBox" class="control-label">City:</label>
         <div class="controls">
@@ -36,7 +30,6 @@
           </select>
         </div>
       </div>
-
       <div class="controls-row">
         <label class="control-label">Featured:</label>
         <div class="controls">
@@ -48,21 +41,65 @@
   <div class="offset1 span8" ng-controller="ListCtrl">
     <table class="table table-hover table-striped">
       <thead>
-      <tr>
-        <th>Name</th>
-        <th>Sport</th>
-        <th>City</th>
-        <th>Featured</th>
-      </tr>
+        <tr>
+          <th>Name</th>
+          <th>Sport</th>
+          <th>City</th>
+          <th>Featured</th>
+        </tr>
       </thead>
       <tbody id="teamListTable">
-      <tr ng-repeat="team in teamsList | filter:filterService.activeFilters | filter:filterService.searchText">
-        <td>{{team.name}}</td>
-        <td>{{team.sport}}</td>
-        <td>{{team.city}}</td>
-        <td>{{team.featured}}</td>
-      </tr>
+        <tr ng-repeat="team in teamsList | filter:filterService.activeFilters | filter:filterService.searchText">
+          <td>{{team.name}}</td>
+          <td>{{team.sport}}</td>
+          <td>{{team.city}}</td>
+          <td>{{team.featured}}</td>
+        </tr>
       </tbody>
     </table>
   </div>
 </div>
+<h3>Pagination</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div ng-controller="MyController" class="my-controller">
+          <h1>Tasty Paginated Menu</h1>
+
+          <small>this is in "MyController"</small>
+
+
+          <div class="row">
+            <div class="col-xs-4">
+              <h3>Meals Page: {{ currentPage }}</h3>
+            </div>
+            <div class="col-xs-4">
+              <label for="search">Search:</label>
+              <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+            <div class="col-xs-4">
+              <label for="search">items per page:</label>
+              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+          </div>
+          <br>
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+              <ul>
+                <li dir-paginate="meal in meals | filter:q | itemsPerPage: pageSize" current-page="currentPage">{{ meal }}</li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div ng-controller="OtherController" class="other-controller">
+          <small>this is in "OtherController"</small>
+          <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
