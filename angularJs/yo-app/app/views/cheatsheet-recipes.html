@@ -62,12 +62,9 @@
 <h3>Pagination</h3>
   <div class="container">
     <div class="row">
-      <div class="col-lg-8">
-        <div ng-controller="MyController" class="my-controller">
+      <div class="col-lg-12">
+        <div ng-controller="PaginationCtrl" class="my-controller">
           <h1>Tasty Paginated Menu</h1>
-
-          <small>this is in "MyController"</small>
-
 
           <div class="row">
             <div class="col-xs-4">
@@ -94,10 +91,9 @@
           </div>
         </div>
 
-        <div ng-controller="OtherController" class="other-controller">
-          <small>this is in "OtherController"</small>
+        <div ng-controller="PageChangeCtrl" class="other-controller">
           <div class="text-center">
-          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" ></dir-pagination-controls>
           </div>
         </div>
       </div>

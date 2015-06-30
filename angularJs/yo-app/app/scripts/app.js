@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'fakeBrowser',
-    'addressBar'
+    'addressBar',
+    'angularUtils.directives.dirPagination'
   ] )
 	.config( [ '$routeProvider', function ( $routeProvider ) {
 		$routeProvider

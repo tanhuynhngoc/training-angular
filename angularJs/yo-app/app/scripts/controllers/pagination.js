@@ -2,7 +2,7 @@
 
 var myApp = angular.module( 'yoAppApp' );
 
-function MyController( $scope ) {
+function PaginationCtrl( $scope ) {
 
 	$scope.currentPage = 1;
 	$scope.pageSize = 10;
@@ -37,8 +37,11 @@ function MyController( $scope ) {
   ];
 	for ( var i = 1; i <= 100; i++ ) {
 		var dish = dishes[ Math.floor( Math.random() * dishes.length ) ];
+
 		var side = sides[ Math.floor( Math.random() * sides.length ) ];
+
 		$scope.meals.push( 'meal ' + i + ': ' + dish + ' ' + side );
+		console.log( $scope.meals );
 	}
 
 	$scope.pageChangeHandler = function ( num ) {
@@ -46,11 +49,11 @@ function MyController( $scope ) {
 	};
 }
 
-function OtherController( $scope ) {
+function PageChangeCtrl( $scope ) {
 	$scope.pageChangeHandler = function ( num ) {
 		console.log( 'going to page ' + num );
 	};
 }
 
-myApp.controller( 'MyController', MyController );
-myApp.controller( 'OtherController', OtherController );
+myApp.controller( 'PaginationCtrl', PaginationCtrl );
+myApp.controller( 'PageChangeCtrl', PageChangeCtrl );
