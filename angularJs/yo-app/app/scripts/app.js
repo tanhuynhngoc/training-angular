@@ -16,35 +16,61 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'fakeBrowser',
-    'addressBar',
-    'angularUtils.directives.dirPagination'
+
   ] )
-	.config( [ '$routeProvider', function ( $routeProvider ) {
+
+// URL to connect to Firebase backend
+.value( 'fbURL', 'https://tanhuynh-angulardemo.firebaseio.com/' )
+
+.config( [ '$routeProvider', function ( $routeProvider ) {
 		$routeProvider
-			.when( '/', {
+			.when( '/main', {
 				templateUrl: 'views/main.html',
-				controller: 'MainCtrl'
-			} )
-			.when( '/about', {
-				templateUrl: 'views/about.html',
-				controller: 'AboutCtrl'
+				controller: 'MainCtrl',
+				title: 'Home'
 			} )
 			.when( '/directive', {
 				templateUrl: 'views/directive.html',
-				controller: 'DirectiveCtrl'
+				controller: 'DirectiveCtrl',
+				title: 'Directive'
 			} )
 			.when( '/using-location-service', {
 				templateUrl: 'views/using-location-service.html',
-				controller: 'LocationCtrl'
+				controller: 'LocationCtrl',
+				title: 'Location service'
 			} )
 			.when( '/cheatsheet-recipes', {
 				templateUrl: 'views/cheatsheet-recipes.html',
-				controller: 'datepickerCtrl'
+				controller: 'datepickerCtrl',
+				title: 'cheatsheet recipes'
+			} )
+			.when( '/ticket-tracker', {
+				templateUrl: 'views/ticket-tracker.html',
+				// controller: 'ticketTrackerCtrl',
+				title: 'Accessibility Ticket Tracker'
+			} )
+			.when( '/ticket-edit', {
+				templateUrl: 'views/ticket-edit.html',
+				// controller: 'ticketEditCtrl',
+				title: 'Edit Ticket'
 			} )
 			.otherwise( {
-				redirectTo: '/'
+				redirectTo: '/main'
 			} );
+
+
+	} ] )
+	.run( [ '$route', '$rootScope', function ( $location, $rootScope ) {
+
+		$rootScope.$on( '$routeChangeSuccess', function ( event, current, previous ) {
+
+			// Test for current route
+			if ( current.$$route ) {
+
+				$rootScope.title = current.$$route.title;
+			}
+
+		} );
 
 
 	} ] );

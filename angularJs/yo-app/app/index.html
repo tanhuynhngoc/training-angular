@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title ng-bind="title"> </title>
     <base href="/"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
@@ -42,12 +42,13 @@
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a ng-href="about">About</a></li>
-              <li><a ng-href="directive">Customer Directive</a></li>
-              <li><a ng-href="using-location-service">Using $location</a></li>
-              <li><a ng-href="cheatsheet-recipes">Cheatsheet and Recipes</a></li>
+            <ul class="nav navbar-nav" ng-controller = "headerTicket">
+              <li ng-class = "{ active: isActive('/main')}" ><a href="#/main">Home</a></li>
+              <li ng-class = "{active: isActive('/directive')}"><a ng-href="directive">Customer Directive</a></li>
+              <li ng-class = "{active: isActive('/using-location-service')}"><a ng-href="using-location-service">Using $location</a></li>
+              <li ng-class = "{active: isActive('/cheatsheet-recipes')}" ><a ng-href="cheatsheet-recipes">Cheatsheet and Recipes</a></li>
+              <li  ng-class = "{active: isActive('/ticket-tracker')}"><a ng-href="ticket-tracker">Ticket Tracker</a></li>
+
             </ul>
           </div>
         </div>
@@ -87,6 +88,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-recursion/angular-recursion.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -95,15 +97,8 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/controllers/directive.js"></script>
-        <script src="scripts/controllers/locationService.js"></script>
-        <script src="modules/js/addressBar.js"></script>
-        <script src="modules/js/fakeBrowser.js"></script>
-        <script src="scripts/controllers/datepicker.js"></script>
-        <script src="scripts/controllers/teamList.js"></script>
-        <script src="scripts/controllers/pagination.js"></script>
-        <script src="scripts/controllers/dirPagination.js"></script>
 
+        <script src="scripts/controllers/ticketTracker.js"></script>
         <!-- endbuild -->
 </body>
 </html>
