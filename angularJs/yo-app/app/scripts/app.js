@@ -16,7 +16,11 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-
+    'addressBar',
+    'fakeBrowser',
+    'angularUtils.directives.dirPagination',
+    'firebase',
+    'TicketApp'
   ] )
 
 // URL to connect to Firebase backend
@@ -46,13 +50,13 @@ angular
 			} )
 			.when( '/ticket-tracker', {
 				templateUrl: 'views/ticket-tracker.html',
-				// controller: 'ticketTrackerCtrl',
+				controller: 'ticketTrackerCtrl',
 				title: 'Accessibility Ticket Tracker'
 			} )
-			.when( '/ticket-edit', {
-				templateUrl: 'views/ticket-edit.html',
-				// controller: 'ticketEditCtrl',
-				title: 'Edit Ticket'
+			.when( '/ticket-create', {
+				templateUrl: 'views/ticket-create.html',
+				controller: 'createTicketCtrl',
+				title: 'Create Ticket'
 			} )
 			.otherwise( {
 				redirectTo: '/main'

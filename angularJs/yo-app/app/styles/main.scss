@@ -35,6 +35,29 @@ body {
     padding-bottom: 19px;
   }
 }
+tbody tr h3 {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0;
+}
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    position: absolute !important;
+}
+tr .ticket-details{
+    display: none;
+}
+
+tr .showdetails .ticket-details{
+    display: block;
+}
+
 
 /* Custom page footer */
 .footer {

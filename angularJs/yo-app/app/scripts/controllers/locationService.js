@@ -3,9 +3,9 @@
 
   .constant( 'initUrl', 'http://www.example.com/index.html#!/path?a=b#h' )
   	.constant( 'baseHref', 'index.html' )
-  	// .value( '$sniffer', {
-  	// 	history: false
-  	// } )
+    // .value( '$sniffer', {
+    //  history: false
+    // } )
   	.config( [ '$locationProvider', function ( $locationProvider ) {
   		$locationProvider.html5Mode( true )
   			.hashPrefix( '!' );

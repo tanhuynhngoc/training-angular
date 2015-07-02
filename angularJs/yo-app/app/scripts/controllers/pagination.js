@@ -41,7 +41,6 @@ function PaginationCtrl( $scope ) {
 		var side = sides[ Math.floor( Math.random() * sides.length ) ];
 
 		$scope.meals.push( 'meal ' + i + ': ' + dish + ' ' + side );
-		console.log( $scope.meals );
 	}
 
 	$scope.pageChangeHandler = function ( num ) {
