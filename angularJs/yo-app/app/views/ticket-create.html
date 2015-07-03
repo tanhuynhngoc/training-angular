@@ -2,7 +2,6 @@
 
 <form name = 'createForm'  novalidate>
 
-   <!--  <p id = 'error-bucket' class = 'error-notice' ng-show = 'createForm.$invalid'><img src = 'images/error.png' alt = '> Please correct the errors below.</p> -->
     <div class = 'form-group' ng-class = "{ 'has-error' : createForm.summary.$invalid && submitted }">
 
         <label for = 'summary'>
@@ -72,7 +71,7 @@
     </div>
 
     <div class = 'form-group'>
-        <input type = 'button' value = 'Cancel' class = 'btn btn-primary' ng-click = "go('main')">
+        <input type = 'button' value = 'Cancel' class = 'btn btn-primary' ng-click = "go('ticket-tracker')">
 
         <!--  <button type = 'button' - stops form submission on general keyboard enter key -->
         <button type = 'button' class = 'btn btn-primary' ng-click = 'add(createForm.$invalid)'>Save</button>

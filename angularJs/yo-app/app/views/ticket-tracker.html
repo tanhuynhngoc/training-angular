@@ -1,9 +1,10 @@
-<div id = 'flash-message' class = 'alert alert-success' ng-show = 'flast.getMessage()'>
+<div id = 'flash-message' class = 'alert alert-success' ng-show = 'flash.getMessage()'>
 	<p>
-		<a href = '#clearAlearMessages' ng-click = 'flash.clearMessage($event);'></a>
-		<strong>Success:</strong> {{ $flash.getMessage() }}
-		<span class = 'glyphicon glyphicon-remove' aria-hidden = 'true'></span>
-		<span class = 'visuallyhidden'>Click to hide message</span>
+		<a href = '#clearAlearMessages' ng-click = 'flash.clearMessage($event);'>
+			<strong>Success:</strong> {{ flash.getMessage() }}
+			<span class = 'glyphicon glyphicon-remove pull-right' aria-hidden = 'true'></span>
+			<span class = 'visuallyhidden'>Click to hide message</span>
+		</a>
 	</p>
 </div>
 
@@ -28,7 +29,8 @@
 			<th scope = 'col'>Actions</th>
 		</thead>
 		<tbody>
-		<tr ng-repeat = '(id, ticket) in tickets | filter:search' id = '{{ticket.id}}' set-last-ticket-id-focus >
+		<tr ng-repeat = '(id, ticket) in tickets | filter:search' id = '{{ticket.$id}}' set-last-ticket-id-focus >
+
 			<th scope = 'row' ng-class = '{ showdetails:index === $index }' id = 'ticket-{{ $index }}'>
 				<h3>
 					<a href = '#expandDetails-{{ ticket.$id }}' ng-click = 'toggleTicketDetails($event, $index)'>
@@ -54,7 +56,7 @@
                 <span class="visuallyhidden">{{ ticket.resolved == true ? " resolved" : "unresolved" }}</span>
             </td>
             <td>
-                <a href="#/edit/{{ ticket.$id }}" class="edit-btn">
+                <a href="/ticket-edit-{{ ticket.$id }}" class="edit-btn">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span class="visuallyhidden">Edit {{ ticket.summary  }}</span>
                 </a>
                 <a class="delete-record" href="#/remove/{{ ticket.$id }}"

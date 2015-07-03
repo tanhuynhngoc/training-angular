@@ -8,7 +8,7 @@ app.controller( 'headerTicket', [ '$scope', '$location', function ( $scope, $loc
 	};
 } ] );
 
-app.controller( 'ticketTrackerCtrl', [ 'Tickets', 'Flash', '$scope', '$rootScope', function ( Tickets, Flash, $scope, $rootScope, $timeout ) {
+app.controller( 'ticketTrackerCtrl', [ 'Tickets', 'Flash', '$scope', '$rootScope', function ( Tickets, Flash, $scope, $rootScope ) {
 
 	$scope.flash = Flash;
 	$scope.tickets = Tickets;
@@ -18,6 +18,7 @@ app.controller( 'ticketTrackerCtrl', [ 'Tickets', 'Flash', '$scope', '$rootScope
 	// using ng-class to display table row indexes
 	$scope.toggleTicketDetails = function ( e, index ) {
 
+
 		if ( $scope.index === index ) { // delete scope index
 			delete $scope.index;
 		} else {
@@ -26,13 +27,6 @@ app.controller( 'ticketTrackerCtrl', [ 'Tickets', 'Flash', '$scope', '$rootScope
 
 		e.preventDefault();
 
-		// add delay to allow time for element to render the set focus to header
-		// $timeout( function () {
-		// 	$( '#ticket-' + index + 'h4' )
-		// 		.first()
-		// 		.attr( 'tabIndex', -1 )
-		// 		.focus();
-		// }, 0 );
 	};
 
 	// delete record from database
@@ -51,80 +45,124 @@ app.controller( 'ticketTrackerCtrl', [ 'Tickets', 'Flash', '$scope', '$rootScope
 
 
 // =================================
-// Create A Ticket View Controller
+// Create and Edit A Ticket View Controller
 // =================================
 
-app.controller( 'createTicketCtrl', function ( $scope, $rootScope, Tickets, $location, $routeParams, $firebase, fbURL, WcagscService, SeverityLevelService, Flash ) {
+app.controller( 'createEditTicketCtrl', [ '$scope', '$rootScope', 'Tickets', '$location', '$routeParams', '$firebaseObject', 'fbURL', 'WcagscService', 'SeverityLevelService', 'Flash', function ( $scope, $rootScope, Tickets, $location, $routeParams, $firebaseObject, fbURL, WcagscService, SeverityLevelService, Flash ) {
 
 	//Load success criterion into template to use in select menus
 	$scope.wcagSCList = WcagscService.wcagSCList;
 	$scope.severityList = SeverityLevelService.severityList;
 
 	// Clear any flash variables we have stored
-	Flash.setMessage( "" );
+	Flash.setMessage( '' );
 
-	// Handle form submits (with errors)
-	$scope.add = function ( inValid ) {
+	// check the existing of param id
+	var paramsId = $routeParams.id;
 
-		// Need to check if a check box has a value if not assign
-		// it a value of false or will not get submitted
-		if ( !$scope.resolved ) {
-			$scope.resolved = false;
-		}
+	if ( paramsId ) { // handle for case edit tickes
 
-		// Check if angular error check marked for as invalid
-		if ( inValid ) {
+		// create new connection to firebase and pass id of record
+		var ticketUrl = new Firebase( fbURL + paramsId );
 
-			// if there are errors
-			// Set focus to the form level error warning
-			$( '#error-bucket' )
-				.show()
-				.attr( "tabIndex", -1 )
-				.focus();
+		// retrive current record as object
+		var ticketsObject = $firebaseObject( ticketUrl );
 
-			// track that the form was submitted and that field level errors can now be shown
-			$scope.submitted = true;
+		// Add record to scope
+		$scope.tickets = ticketsObject;
 
-		} else {
+		// track record id so that we can set focus back to edit button if user hits cancel
+		$rootScope.lastTicketID = $scope.tickets.$id;
 
-			// If form has no errors - save results to database;
-			var save = Tickets.$add( {
-				summary: $scope.summary,
-				description: $scope.description,
-				wcagSC: $scope.wcagSC,
-				severity: $scope.severity,
-				fix: $scope.fix,
-				resolved: $scope.resolved
+		// once the firebase record has loaded update page title to include summary title
+		ticketsObject.$loaded()
+			.then( function ( object ) {
+				$rootScope.title = $rootScope.title + ' - ' + object.summary;
+				$rootScope.lastTicketID = object.$id;
 			} );
 
-			if ( save ) {
+		// handle form submits
+		$scope.edit = function ( inValid ) {
+			if ( inValid ) {
 
-				// if save into database was successful
-				// Clear any search the user had so they can see the new record
-				$rootScope.search = "";
-
-				// set flash message to be displayed
-				Flash.setMessage( "Ticket Created!" );
-
-				// send user to main screen
-				$location.path( "ticket-tracker" );
+				$scope.submitted = true;
 			} else {
 
-				// if not successful warn user
-				alert( 'something went wrong' );
+				//if form has no errors - save results to database
+				var edit = $scope.tickets.$save();
+
+				if ( edit ) {
+
+					Flash.setMessage( 'Record Saved!' );
+					$location.path( 'ticket-tracker' );
+				} else {
+					alert( 'something went wrong' );
+				}
 			}
-		}
-	};
+		};
+
+
+	} else { // handle for case create tickets
+
+		// Handle form submits (with errors)
+		$scope.add = function ( inValid ) {
+
+			// Need to check if a check box has a value if not assign
+			// it a value of false or will not get submitted
+			if ( !$scope.resolved ) {
+				$scope.resolved = false;
+			}
+
+			// Check if angular error check marked for as invalid
+			if ( inValid ) {
+
+				// track that the form was submitted and that field level errors can now be shown
+				$scope.submitted = true;
+
+			} else {
+
+				// If form has no errors - save results to database;
+				var save = Tickets.$add( {
+					summary: $scope.summary,
+					description: $scope.description,
+					wcagSC: $scope.wcagSC,
+					severity: $scope.severity,
+					fix: $scope.fix,
+					resolved: $scope.resolved
+				} );
+
+				if ( save ) {
+
+					// if save into database was successful
+					// Clear any search the user had so they can see the new record
+					$rootScope.search = '';
+
+					// set flash message to be displayed
+					Flash.setMessage( 'Ticket Created!' );
+
+					// send user to main screen
+					$location.path( 'ticket-tracker' );
+				} else {
+
+					// if not successful warn user
+					alert( 'something went wrong' );
+				}
+			}
+		};
+
+	}
+
 
 
 	// Cancel button function
 	$scope.go = function ( path ) {
 
 		// indicate last form viewed
-		$rootScope.lastForm = "create";
+		$rootScope.lastForm = ticketUrl ? 'edit' : 'create';
+		console.log( $rootScope.lastForm );
 
 		// send user to path provided in ng-click
 		$location.path( path );
 	};
 
-} )
+} ] );

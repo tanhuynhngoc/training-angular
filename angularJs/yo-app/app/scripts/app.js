@@ -55,8 +55,13 @@ angular
 			} )
 			.when( '/ticket-create', {
 				templateUrl: 'views/ticket-create.html',
-				controller: 'createTicketCtrl',
+				controller: 'createEditTicketCtrl',
 				title: 'Create Ticket'
+			} )
+			.when( '/ticket-edit-:id', {
+				templateUrl: 'views/ticket-edit.html',
+				controller: 'createEditTicketCtrl',
+				title: 'Edit Ticket'
 			} )
 			.otherwise( {
 				redirectTo: '/main'
