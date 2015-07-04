@@ -63,6 +63,11 @@ angular
 				controller: 'createEditTicketCtrl',
 				title: 'Edit Ticket'
 			} )
+			.when( '/animations', {
+				templateUrl: 'views/animations.html',
+				// controller: 'createEditTicketCtrl',
+				title: 'Animations'
+			} )
 			.otherwise( {
 				redirectTo: '/main'
 			} );
