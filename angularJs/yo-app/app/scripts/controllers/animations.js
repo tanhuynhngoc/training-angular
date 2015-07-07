@@ -10,56 +10,6 @@
  	}
  } );
 
- // animate service
- app.directive( "elementGlow", function ( $animate ) {
- 	// Initialization
- 	var unwatchProperty = null;
-
- 	// Definition object
- 	return {
- 		// Post-link function
- 		link: function ( scope, element, attrs ) {
- 			var watchedProperty = attrs.elementGlow;
-
- 			if ( watchedProperty !== undefined &&
- 				watchedProperty !== "" ) {
- 				unwatchProperty = scope.$watch( watchedProperty,
- 					function ( newVal, oldVal, scope ) {
- 						if ( newVal !== oldVal ) {
- 							if ( newVal ) {
- 								$animate.animate( element, {
- 										"box-shadow": "none"
- 									}, {
- 										"box-shadow": "0px 0px 15px 5px rgba(135, 206, 250, 0.75)"
- 									},
- 									"element-glow-animation"
- 								);
- 							} else {
- 								$animate.animate( element, {
- 										"box-shadow": "0px 0px 15px 5px rgba(135, 206, 250, 0.75)"
- 									}, {
- 										"box-shadow": "none"
- 									},
- 									"element-glow-animation"
- 								);
- 							}
- 						}
- 					} );
-
- 				element.one( "$destroy",
- 					function () {
- 						// Directive cleanup
- 						if ( unwatchProperty !== null ) {
- 							unwatchProperty();
-
- 							unwatchProperty = null;
- 						}
- 					} );
- 			}
- 		}
- 	};
- } );
-
  app.controller( "animateService", [ '$scope', '$animate', '$q', function ( $scope, $animate, $q ) {
  	$scope.enterAnimationStateBox1 = "OFF";
  	$scope.leaveAnimationStateBox1 = "OFF";
